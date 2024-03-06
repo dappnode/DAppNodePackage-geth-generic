@@ -1,0 +1,33 @@
+{
+  "name": "lukso-geth.dnp.dappnode.eth",
+  "version": "0.1.1",
+  "links": {
+    "homepage": "https://github.com/dappnode/DAppNodePackage-geth-generic#readme",
+    "api": "http://lukso-geth.dappnode:8545",
+    "engineAPI": "http://lukso-geth.dappnode:8551"
+  },
+  "requirements": {
+    "minimumDappnodeVersion": "0.2.77"
+  },
+  "globalEnvs": [
+    {
+      "envs": ["CONSENSUS_CLIENT_LUKSO"],
+      "services": ["geth"]
+    }
+  ],
+  "exposable": [
+    {
+      "name": "Lukso Geth JSON-RPC (HTTP)",
+      "description": "HTTP-JSON-RPC endpoint for Lukso",
+      "serviceName": "geth",
+      "port": 8545
+    },
+    {
+      "name": "Lukso Geth JSON-RPC (WS)",
+      "description": "WS-JSON-RPC endpoint for Lukso",
+      "serviceName": "geth",
+      "port": 8546
+    }
+  ],
+  "ports": ["33141:33141/tcp", "33141:33141/udp"]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "geth.dnp.dappnode.eth",
+  "version": "0.1.43",
+  "links": {
+    "api": "http://geth.dappnode:8545",
+    "apiEngine": "http://geth.dappnode:8551",
+    "homepage": "https://github.com/dappnode/DAppNodePackage-geth-generic#readme"
+  },
+  "requirements": {
+    "minimumDappnodeVersion": "0.2.60"
+  },
+  "globalEnvs": [
+    {
+      "envs": ["CONSENSUS_CLIENT_MAINNET"],
+      "services": ["geth"]
+    }
+  ],
+  "exposable": [
+    {
+      "name": "Geth JSON-RPC (HTTP)",
+      "description": "HTTP-JSON-RPC endpoint for Ethereum mainnet",
+      "serviceName": "geth",
+      "port": 8545
+    },
+    {
+      "name": "Geth JSON-RPC (WS)",
+      "description": "WS-JSON-RPC endpoint for Ethereum mainnet",
+      "serviceName": "geth",
+      "port": 8546
+    }
+  ],
+  "ports": ["30403:30403/tcp", "30403:30403/udp"]
+}

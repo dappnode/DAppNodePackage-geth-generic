@@ -1,0 +1,33 @@
+{
+  "name": "holesky-geth.dnp.dappnode.eth",
+  "version": "0.1.1",
+  "links": {
+    "homepage": "https://github.com/dappnode/DAppNodePackage-geth-generic#readme",
+    "api": "http://holesky-geth.dappnode:8545",
+    "engineAPI": "http://holesky-geth.dappnode:8551"
+  },
+  "requirements": {
+    "minimumDappnodeVersion": "0.2.60"
+  },
+  "globalEnvs": [
+    {
+      "envs": ["CONSENSUS_CLIENT_HOLESKY"],
+      "services": ["geth"]
+    }
+  ],
+  "exposable": [
+    {
+      "name": "Holesky Geth JSON-RPC (HTTP)",
+      "description": "HTTP-JSON-RPC endpoint for the Holesky testnet",
+      "serviceName": "geth",
+      "port": 8545
+    },
+    {
+      "name": "Holesky Geth JSON-RPC (WS)",
+      "description": "WS-JSON-RPC endpoint for the Holesky testnet",
+      "serviceName": "geth",
+      "port": 8546
+    }
+  ],
+  "ports": ["31403:31403/tcp", "31403:31403/udp"]
+}
