@@ -21,6 +21,5 @@
       "fromSubdomain": "sepolia-geth",
       "port": 8545
     }
-  ],
-  "ports": ["35415:35415/tcp", "35415:35415/udp"]
+  ]
 }

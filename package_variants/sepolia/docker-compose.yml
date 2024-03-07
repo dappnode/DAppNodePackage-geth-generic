@@ -1,0 +1,8 @@
+version: "3.5"
+services:
+  geth:
+    environment:
+      NETWORK: "sepolia"
+    ports:
+      - "35415:35415/tcp"
+      - "35415:35415/udp"

@@ -1,6 +1,4 @@
 {
-  "arg": "NETWORK",
-  "argInServices": ["geth"],
   "upstreamVersion": "v1.13.14",
   "upstreamRepo": "ethereum/go-ethereum",
   "upstreamArg": "UPSTREAM_VERSION",
