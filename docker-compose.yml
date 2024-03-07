@@ -1,18 +1,16 @@
 version: "3.5"
 services:
   geth:
-    # TODO: image should be defined by SDK in build action (alredy done in theory)
+    # TODO: image should be defined by SDK in build action (already done in theory)
     build:
       context: geth
       args:
         UPSTREAM_VERSION: v1.13.14
-        # TODO: SDK should add here NETWORK (passed as flag to build action)
     volumes:
       - "geth:/root/.ethereum"
     environment:
       - EXTRA_FLAGS=--http.api eth,engine,net,web3,txpool
       - SYNCMODE=snap
     restart: unless-stopped
-    # TODO: Add ports here from package_variants/NETWORK/dappnode_package.json (ports array)
 volumes:
   geth: {}
