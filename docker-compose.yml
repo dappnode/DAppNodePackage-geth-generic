@@ -1,16 +1,15 @@
 version: "3.5"
 services:
   geth:
-    # TODO: image should be defined by SDK in build action (already done in theory)
     build:
       context: geth
       args:
         UPSTREAM_VERSION: v1.13.14
     volumes:
-      - "geth:/root/.ethereum"
+      - geth:/root/.ethereum
     environment:
-      - EXTRA_FLAGS=--http.api eth,engine,net,web3,txpool
-      - SYNCMODE=snap
+      SYNCMODE: snap
+      NETWORK: sepolia
     restart: unless-stopped
 volumes:
   geth: {}
