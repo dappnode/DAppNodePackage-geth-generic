@@ -1,6 +1,6 @@
 {
   "name": "goerli-geth.dnp.dappnode.eth",
-  "version": "0.4.35",
+  "version": "0.4.36",
   "links": {
     "homepage": "https://github.com/dappnode/DAppNodePackage-geth-generic#readme",
     "api": "http://goerli-geth.dappnode:8545",
