@@ -11,7 +11,7 @@ RUN apk update && apk add curl
 # If NETWORK == lukso mkdir /config
 RUN if [ "${NETWORK}" = "lukso" ]; then \
     mkdir /config && \
-    curl -L https://raw.githubusercontent.com/lukso-network/network-configs/main/mainnet/shared/genesis_42.json -o /config/genesis.json; \
+    curl -L https://raw.githubusercontent.com/lukso-network/network-configs/main/mainnet/shared/genesis.json -o /config/genesis.json; \
     fi
 
 ENV GETH_AUTHRPC_ADDR=0.0.0.0 \ 
