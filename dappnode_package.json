@@ -1,5 +1,5 @@
 {
-  "upstreamVersion": "v1.14.0",
+  "upstreamVersion": "v1.14.2",
   "upstreamRepo": "ethereum/go-ethereum",
   "upstreamArg": "UPSTREAM_VERSION",
   "shortDescription": "Geth is the official Go implementation of the Ethereum protocol.",
