@@ -1,8 +1,9 @@
 version: "3.5"
 services:
   geth:
-    environment:
-      NETWORK: "lukso"
+    build:
+      args:
+        NETWORK: "lukso"
     ports:
       - "33141:33141/tcp"
       - "33141:33141/udp"

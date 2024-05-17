@@ -1,8 +1,9 @@
 version: "3.5"
 services:
   geth:
-    environment:
-      NETWORK: "goerli"
+    build:
+      args:
+        NETWORK: "goerli"
     ports:
       - "30803:30803/tcp"
       - "30803:30803/udp"

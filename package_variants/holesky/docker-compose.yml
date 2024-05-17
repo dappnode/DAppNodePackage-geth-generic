@@ -1,8 +1,9 @@
 version: "3.5"
 services:
   geth:
-    environment:
-      NETWORK: "holesky"
+    build:
+      args:
+        NETWORK: "holesky"
     ports:
       - "31403:31403/tcp"
       - "31403:31403/udp"

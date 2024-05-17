@@ -1,8 +1,9 @@
 version: "3.5"
 services:
   geth:
-    environment:
-      NETWORK: "mainnet"
+    build:
+      args:
+        NETWORK: "mainnet"
     ports:
       - "30403:30403/tcp"
       - "30403:30403/udp"
