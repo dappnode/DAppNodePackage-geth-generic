@@ -1,7 +1,11 @@
 {
-  "upstreamVersion": "v1.14.0",
-  "upstreamRepo": "ethereum/go-ethereum",
-  "upstreamArg": "UPSTREAM_VERSION",
+  "upstream": [
+    {
+      "repo": "ethereum/go-ethereum",
+      "version": "v1.14.0",
+      "arg": "UPSTREAM_VERSION"
+    }
+  ],
   "shortDescription": "Geth is the official Go implementation of the Ethereum protocol.",
   "description": "Ethereum is a global, open-source platform for decentralized applications where you can write code that controls digital value, runs exactly as programmed, and is accessible anywhere in the world.",
   "type": "service",
