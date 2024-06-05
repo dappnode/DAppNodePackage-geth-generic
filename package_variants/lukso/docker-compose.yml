@@ -3,7 +3,8 @@ services:
   geth:
     build:
       args:
-        NETWORK: "lukso"
+        NETWORK: lukso
     ports:
-      - "33141:33141/tcp"
-      - "33141:33141/udp"
+      - 33141:33141/tcp
+      - 33141:33141/udp
+    image: geth.lukso-geth.dnp.dappnode.eth:0.1.3

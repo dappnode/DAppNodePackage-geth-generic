@@ -3,7 +3,8 @@ services:
   geth:
     build:
       args:
-        NETWORK: "goerli"
+        NETWORK: goerli
     ports:
-      - "30803:30803/tcp"
-      - "30803:30803/udp"
+      - 30803:30803/tcp
+      - 30803:30803/udp
+    image: geth.goerli-geth.dnp.dappnode.eth:0.4.36

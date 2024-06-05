@@ -3,7 +3,8 @@ services:
   geth:
     build:
       args:
-        NETWORK: "holesky"
+        NETWORK: holesky
     ports:
-      - "31403:31403/tcp"
-      - "31403:31403/udp"
+      - 31403:31403/tcp
+      - 31403:31403/udp
+    image: geth.holesky-geth.dnp.dappnode.eth:0.1.2
