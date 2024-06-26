@@ -14,10 +14,14 @@ set_network_specific_config() {
   echo "[INFO - entrypoint] Initializing $NETWORK specific config for client"
 
   # If consensus client is prysm-prater.dnp.dappnode.eth --> CLIENT=prysm
-  CLIENT=$(echo $CONSENSUS_DNP | cut -d'.' -f1 | cut -d'-' -f1)
+  CLIENT=$(echo "$CONSENSUS_DNP" | cut -d'.' -f1 | cut -d'-' -f1)
 
   # TODO: This should be a global env for all the networks
-  [ "$NETWORK" = "sepolia" ] && set_jwt_path "sepolia" || set_jwt_path "$CLIENT"
+  if [ "$NETWORK" = "sepolia" ]; then
+    set_jwt_path "sepolia"
+  else
+    set_jwt_path "$CLIENT"
+  fi
 
   [ "$1" = "lukso" ] && geth --datadir="$DATA_DIR" init /config/genesis.json
 
@@ -47,8 +51,8 @@ case "$NETWORK" in
 esac
 
 exec geth \
-  --datadir $DATA_DIR \
-  --syncmode ${SYNCMODE:-snap} \
-  --port ${P2P_PORT} \
-  --authrpc.jwtsecret ${JWT_PATH} \
-  $EXTRA_FLAGS
+  --datadir "${DATA_DIR}" \
+  --syncmode "${SYNCMODE:-snap}" \
+  --port "${P2P_PORT}" \
+  --authrpc.jwtsecret "${JWT_PATH}" \
+  "${EXTRA_FLAGS}"
