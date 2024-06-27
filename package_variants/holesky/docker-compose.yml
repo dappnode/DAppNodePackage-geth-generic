@@ -4,6 +4,8 @@ services:
     build:
       args:
         NETWORK: holesky
+    environment:
+      P2P_PORT: 31403
     ports:
       - 31403:31403/tcp
       - 31403:31403/udp

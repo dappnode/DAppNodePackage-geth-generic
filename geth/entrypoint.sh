@@ -2,13 +2,12 @@
 
 handle_network() {
   case "$NETWORK" in
-  "goerli") set_network_specific_config 30803 "--goerli" ;;
-  "holesky") set_network_specific_config 31403 "--holesky" ;;
+  "holesky") set_network_specific_config "--holesky" ;;
   "lukso")
-    set_network_specific_config 33141 "--networkid 42 --miner.gasprice 1000000000 --miner.gaslimit 42000000 --bootnodes enode://c2bb19ce658cfdf1fecb45da599ee6c7bf36e5292efb3fb61303a0b2cd07f96c20ac9b376a464d687ac456675a2e4a44aec39a0509bcb4b6d8221eedec25aca2@34.147.73.193:30303,enode://276f14e4049840a0f5aa5e568b772ab6639251149a52ba244647277175b83f47b135f3b3d8d846cf81a8e681684e37e9fc10ec205a9841d3ae219aa08aa9717b@34.32.192.211:30303 --maxpeers 50"
+    set_network_specific_config "--networkid 42 --miner.gasprice 1000000000 --miner.gaslimit 42000000 --bootnodes enode://c2bb19ce658cfdf1fecb45da599ee6c7bf36e5292efb3fb61303a0b2cd07f96c20ac9b376a464d687ac456675a2e4a44aec39a0509bcb4b6d8221eedec25aca2@34.147.73.193:30303,enode://276f14e4049840a0f5aa5e568b772ab6639251149a52ba244647277175b83f47b135f3b3d8d846cf81a8e681684e37e9fc10ec205a9841d3ae219aa08aa9717b@34.32.192.211:30303 --maxpeers 50"
     ;;
-  "mainnet") set_network_specific_config 30403 "--mainnet" ;;
-  "sepolia") set_network_specific_config 35415 "--sepolia" ;;
+  "mainnet") set_network_specific_config "--mainnet" ;;
+  "sepolia") set_network_specific_config "--sepolia" ;;
   *)
     echo "Unsupported network: $NETWORK"
     exit 1
@@ -17,8 +16,7 @@ handle_network() {
 }
 
 set_network_specific_config() {
-  P2P_PORT=$1
-  EXTRA_FLAGS="$2 $EXTRA_FLAGS"
+  EXTRA_FLAGS="$1 $EXTRA_FLAGS"
 
   echo "[INFO - entrypoint] Initializing $NETWORK specific config for client"
 

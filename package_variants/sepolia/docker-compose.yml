@@ -4,6 +4,8 @@ services:
     build:
       args:
         NETWORK: sepolia
+    environment:
+      P2P_PORT: 35415
     ports:
       - 35415:35415/tcp
       - 35415:35415/udp

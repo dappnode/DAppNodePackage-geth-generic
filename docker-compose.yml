@@ -10,7 +10,6 @@ services:
     environment:
       EXTRA_FLAGS: ""
       SYNCMODE: snap
-      NETWORK: sepolia
     restart: unless-stopped
 volumes:
   geth: {}
