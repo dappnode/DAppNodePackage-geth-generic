@@ -1,7 +1,9 @@
 ARG UPSTREAM_VERSION
-ARG NETWORK
 
 FROM ethereum/client-go:${UPSTREAM_VERSION}
+
+ARG NETWORK
+ARG P2P_PORT
 
 COPY /security /security
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
@@ -25,6 +27,7 @@ ENV GETH_AUTHRPC_ADDR=0.0.0.0 \
     GETH_METRICS=true \
     GETH_METRICS_ADDR=0.0.0.0 \
     DATA_DIR=/data \
+    P2P_PORT=${P2P_PORT} \
     NETWORK=${NETWORK}
 
 # TODO: Should we add this?

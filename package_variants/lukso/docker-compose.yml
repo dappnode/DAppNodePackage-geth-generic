@@ -4,8 +4,7 @@ services:
     build:
       args:
         NETWORK: lukso
-    environment:
-      P2P_PORT: 33141
+        P2P_PORT: 33141
     ports:
       - 33141:33141/tcp
       - 33141:33141/udp
