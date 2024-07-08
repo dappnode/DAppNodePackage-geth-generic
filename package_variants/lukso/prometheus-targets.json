@@ -1,0 +1,12 @@
+[
+    {
+        "labels": {
+            "package": "lukso-geth.dnp.dappnode.eth",
+            "service": "geth",
+            "__metrics_path__": "/debug/metrics/prometheus"
+        },
+        "targets": [
+            "lukso-geth.dappnode:6060"
+        ]
+    }
+]

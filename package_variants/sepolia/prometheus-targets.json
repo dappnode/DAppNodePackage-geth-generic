@@ -1,0 +1,12 @@
+[
+    {
+        "labels": {
+            "package": "sepolia-geth.dnp.dappnode.eth",
+            "service": "geth",
+            "__metrics_path__": "/debug/metrics/prometheus"
+        },
+        "targets": [
+            "sepolia-geth.dappnode:6060"
+        ]
+    }
+]

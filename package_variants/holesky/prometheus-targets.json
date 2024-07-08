@@ -1,0 +1,12 @@
+[
+    {
+        "labels": {
+            "package": "holesky-geth.dnp.dappnode.eth",
+            "service": "geth",
+            "__metrics_path__": "/debug/metrics/prometheus"
+        },
+        "targets": [
+            "holesky-geth.dappnode:6060"
+        ]
+    }
+]
