@@ -32,7 +32,7 @@ run_client() {
     --datadir "${DATA_DIR}" \
     --syncmode "${SYNCMODE:-snap}" \
     --port "${P2P_PORT}" \
-    --authrpc.jwtsecret "${JWT_PATH}" ${EXTRA_FLAGS}
+    --authrpc.jwtsecret "${JWT_PATH}" ${EXTRA_OPTS}
 }
 
 handle_network

@@ -9,7 +9,7 @@ services:
     volumes:
       - geth:/root/.ethereum
     environment:
-      EXTRA_FLAGS: ""
+      EXTRA_OPTS: ""
       SYNCMODE: snap
     restart: unless-stopped
 volumes:
