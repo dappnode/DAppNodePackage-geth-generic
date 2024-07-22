@@ -39,6 +39,8 @@ RUN apk update && apk add curl && apk cache clean && \
 #GETH_HTTP_CORSDOMAIN="*" \
 #GETH_WS_ORIGINS="*" \
 
+# This env changes the variant
+# Placed at the end to regenerate the least amount of layers
 ENV NETWORK=${NETWORK}
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
