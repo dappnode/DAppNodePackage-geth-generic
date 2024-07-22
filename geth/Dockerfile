@@ -1,15 +1,10 @@
 ARG UPSTREAM_VERSION
-
 FROM ethereum/client-go:${UPSTREAM_VERSION}
 
 ARG NETWORK
 ARG P2P_PORT
 ARG STAKER_SCRIPTS_VERSION
-
-COPY /security /security
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-
-RUN apk update && apk add curl
+ARG DATA_DIR
 
 # If NETWORK == lukso mkdir /config
 RUN if [ "${NETWORK}" = "lukso" ]; then \
@@ -27,17 +22,23 @@ ENV GETH_AUTHRPC_ADDR=0.0.0.0 \
     GETH_WS_ADDR=0.0.0.0 \
     GETH_METRICS=true \
     GETH_METRICS_ADDR=0.0.0.0 \
-    DATA_DIR=/data \
+    DATA_DIR=${DATA_DIR} \
     P2P_PORT=${P2P_PORT} \
-    NETWORK=${NETWORK} \
+    SECURITY_PATH=/security \
     STAKER_SCRIPTS_URL=https://github.com/dappnode/staker-package-scripts/releases/download/${STAKER_SCRIPTS_VERSION}
 
 ADD ${STAKER_SCRIPTS_URL}/execution_tools.sh /etc/profile.d/
 
-RUN chmod +rx /usr/local/bin/entrypoint.sh /etc/profile.d/execution_tools.sh
+COPY /security ${SECURITY_PATH}
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+RUN apk update && apk add curl && apk cache clean && \
+    chmod +rx /usr/local/bin/entrypoint.sh /etc/profile.d/execution_tools.sh
 
 # TODO: Should we add this?
 #GETH_HTTP_CORSDOMAIN="*" \
 #GETH_WS_ORIGINS="*" \
+
+ENV NETWORK=${NETWORK}
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
