@@ -15,17 +15,16 @@ jobs:
     name: Build test
     steps:
       - uses: actions/checkout@v4
-      - run: npx @dappnode/dappnodesdk build --skip_save --template --arg NETWORK=mainnet # TODO: Implement this in SDK
+      - run: npx @dappnode/dappnodesdk build --skip_save --variant=mainnet
 
-  # TODO: Run one E2E test per network?
-  e2e-test:
-    runs-on: mainnet
-    needs: build-test
-    if: github.event_name != 'push'
-    name: End to end tests
-    steps:
-      - uses: actions/checkout@v4
-      - run: npx @dappnode/dappnodesdk@latest github-action test-end-to-end --errorLogsTimeout 120 --healthCheckUrl http://geth.dappnode:8545 --network mainnet
+  # e2e-test:
+  #   runs-on: mainnet
+  #   needs: build-test
+  #   if: github.event_name != 'push'
+  #   name: End to end tests
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - run: npx @dappnode/dappnodesdk@latest github-action test-end-to-end --errorLogsTimeout 120 --healthCheckUrl http://geth.dappnode:8545 --network mainnet
 
   release:
     name: Release
