@@ -29,7 +29,7 @@ COPY /security ${SECURITY_PATH}
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 RUN apk update && apk add curl && apk cache clean && \
-    chmod +rx /usr/local/bin/entrypoint.sh /etc/profile.d/execution_tools.sh
+    chmod +rx /usr/local/bin/entrypoint.sh
 
 # TODO: Should we add this?
 #GETH_HTTP_CORSDOMAIN="*" \
