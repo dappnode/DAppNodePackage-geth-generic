@@ -3,6 +3,7 @@ FROM ethereum/client-go:${UPSTREAM_VERSION}
 
 ARG NETWORK
 ARG P2P_PORT
+ARG STAKER_SCRIPTS_VERSION
 ARG DATA_DIR
 
 # If NETWORK == lukso mkdir /config
@@ -23,13 +24,16 @@ ENV GETH_AUTHRPC_ADDR=0.0.0.0 \
     GETH_METRICS_ADDR=0.0.0.0 \
     DATA_DIR=${DATA_DIR} \
     P2P_PORT=${P2P_PORT} \
-    SECURITY_PATH=/security
+    SECURITY_PATH=/security \
+    STAKER_SCRIPTS_URL=https://github.com/dappnode/staker-package-scripts/releases/download/${STAKER_SCRIPTS_VERSION}
+
+ADD ${STAKER_SCRIPTS_URL}/execution_tools.sh /etc/profile.d/
 
 COPY /security ${SECURITY_PATH}
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 RUN apk update && apk add curl && apk cache clean && \
-    chmod +rx /usr/local/bin/entrypoint.sh
+    chmod +rx /usr/local/bin/entrypoint.sh /etc/profile.d/execution_tools.sh
 
 # TODO: Should we add this?
 #GETH_HTTP_CORSDOMAIN="*" \
