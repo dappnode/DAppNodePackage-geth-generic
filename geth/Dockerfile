@@ -6,12 +6,6 @@ ARG P2P_PORT
 ARG STAKER_SCRIPTS_VERSION
 ARG DATA_DIR
 
-# If NETWORK == lukso mkdir /config
-RUN if [ "${NETWORK}" = "lukso" ]; then \
-    mkdir /config && \
-    curl -L https://raw.githubusercontent.com/lukso-network/network-configs/main/mainnet/shared/genesis.json -o /config/genesis.json; \
-    fi
-
 ENV GETH_AUTHRPC_ADDR=0.0.0.0 \ 
     GETH_AUTHRPC_PORT=8551 \
     GETH_AUTHRPC_VHOSTS=* \
@@ -33,6 +27,12 @@ COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 RUN apk update && apk add curl && apk cache clean && \
     chmod +rx /usr/local/bin/entrypoint.sh /etc/profile.d/execution_tools.sh
+
+# If NETWORK == lukso mkdir /config
+RUN if [ "${NETWORK}" = "lukso" ]; then \
+    mkdir /config && \
+    curl -L https://raw.githubusercontent.com/lukso-network/network-configs/main/mainnet/shared/genesis.json -o /config/genesis.json; \
+    fi
 
 # TODO: Should we add this?
 #GETH_HTTP_CORSDOMAIN="*" \
