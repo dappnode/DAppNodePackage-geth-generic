@@ -9,12 +9,6 @@
   "requirements": {
     "minimumDappnodeVersion": "0.2.77"
   },
-  "globalEnvs": [
-    {
-      "envs": ["CONSENSUS_CLIENT_LUKSO"],
-      "services": ["geth"]
-    }
-  ],
   "exposable": [
     {
       "name": "Lukso Geth JSON-RPC (HTTP)",

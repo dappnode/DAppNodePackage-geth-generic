@@ -9,12 +9,6 @@
   "requirements": {
     "minimumDappnodeVersion": "0.2.60"
   },
-  "globalEnvs": [
-    {
-      "envs": ["CONSENSUS_CLIENT_HOLESKY"],
-      "services": ["geth"]
-    }
-  ],
   "exposable": [
     {
       "name": "Holesky Geth JSON-RPC (HTTP)",

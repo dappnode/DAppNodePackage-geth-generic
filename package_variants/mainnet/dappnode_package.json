@@ -9,12 +9,6 @@
   "requirements": {
     "minimumDappnodeVersion": "0.2.60"
   },
-  "globalEnvs": [
-    {
-      "envs": ["CONSENSUS_CLIENT_MAINNET"],
-      "services": ["geth"]
-    }
-  ],
   "exposable": [
     {
       "name": "Geth JSON-RPC (HTTP)",
