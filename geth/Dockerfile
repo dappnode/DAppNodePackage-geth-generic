@@ -24,12 +24,11 @@ ENV GETH_AUTHRPC_ADDR=0.0.0.0 \
     GETH_METRICS_ADDR=0.0.0.0 \
     DATA_DIR=${DATA_DIR} \
     P2P_PORT=${P2P_PORT} \
-    SECURITY_PATH=/security \
+    JWT_PATH=/jwtsecret.hex \
     STAKER_SCRIPTS_URL=https://github.com/dappnode/staker-package-scripts/releases/download/${STAKER_SCRIPTS_VERSION}
 
 ADD ${STAKER_SCRIPTS_URL}/execution_tools.sh /etc/profile.d/
 
-COPY /security ${SECURITY_PATH}
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 RUN apk update && apk add curl && apk cache clean && \

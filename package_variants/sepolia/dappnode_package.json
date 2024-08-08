@@ -21,5 +21,8 @@
       "fromSubdomain": "sepolia-geth",
       "port": 8545
     }
-  ]
+  ],
+  "optionalDependencies": {
+    "prysm-sepolia.dnp.dappnode.eth": ">=0.1.2"
+  }
 }

@@ -1,11 +1,10 @@
 #!/bin/sh
 
-SUPPORTED_NETWORKS="holesky mainnet lukso sepolia"
-
 # shellcheck disable=SC1091
 . /etc/profile
 
-JWT_PATH=$(get_jwt_path "${NETWORK}" "${SUPPORTED_NETWORKS}" "${SECURITY_PATH}")
+JWT_SECRET=$(get_jwt_secret_by_network "${NETWORK}")
+echo "${JWT_SECRET}" >"${JWT_PATH}"
 
 case "$NETWORK" in
 "holesky")
@@ -20,7 +19,10 @@ case "$NETWORK" in
   ;;
 "sepolia")
   NETWORK_FLAGS="--sepolia"
-  JWT_PATH="/security/sepolia/jwtsecret.hex"
+  ;;
+*)
+  echo "[ERROR - entrypoint] Unsupported network: $NETWORK"
+  exit 1
   ;;
 esac
 
