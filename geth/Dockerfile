@@ -6,13 +6,16 @@ ARG P2P_PORT
 ARG STAKER_SCRIPTS_VERSION
 ARG DATA_DIR
 
-ENV GETH_AUTHRPC_ADDR=0.0.0.0 \ 
+ENV GETH_HTTP=true \
+    GETH_HTTP_CORSDOMAIN=* \
+    GETH_HTTP_API=eth,engine,net,web3,txpool \
+    GETH_HTTP_ADDR=0.0.0.0 \
+    GETH_HTTP_VHOSTS=* \
+    GETH_AUTHRPC_ADDR=0.0.0.0 \ 
     GETH_AUTHRPC_PORT=8551 \
     GETH_AUTHRPC_VHOSTS=* \
-    GETH_HTTP_API=eth,engine,net,web3,txpool \
-    GETH_HTTP=true \
-    GETH_HTTP_ADDR=0.0.0.0 \
     GETH_WS=true \
+    GET_WS_ORIGINS=* \
     GETH_WS_ADDR=0.0.0.0 \
     GETH_WS_PORT=8546 \
     GETH_METRICS=true \
@@ -34,10 +37,6 @@ RUN if [ "${NETWORK}" = "lukso" ]; then \
     mkdir /config && \
     curl -L https://raw.githubusercontent.com/lukso-network/network-configs/main/mainnet/shared/genesis.json -o /config/genesis.json; \
     fi
-
-# TODO: Should we add this?
-#GETH_HTTP_CORSDOMAIN="*" \
-#GETH_WS_ORIGINS="*" \
 
 # This env changes the variant
 # Placed at the end to regenerate the least amount of layers
