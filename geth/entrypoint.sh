@@ -35,6 +35,6 @@ exec geth \
   --datadir "${DATA_DIR}" \
   --syncmode "${SYNCMODE:-snap}" \
   --port "${P2P_PORT}" \
-  --authrpc.jwtsecret "${JWT_PATH}" ${NETWORK_FLAGS} ${EXTRA_OPTS} \
   --metrics \
   --metrics.addr 0.0.0.0 \
+  --authrpc.jwtsecret "${JWT_PATH}" ${NETWORK_FLAGS} ${EXTRA_OPTS}
