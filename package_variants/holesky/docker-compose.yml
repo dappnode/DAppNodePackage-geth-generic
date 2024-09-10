@@ -12,3 +12,5 @@ services:
       - 31403:31403/tcp
       - 31403:31403/udp
     image: geth.holesky-geth.dnp.dappnode.eth:0.1.2
+volumes:
+  geth: {}
