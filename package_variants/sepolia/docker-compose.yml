@@ -5,7 +5,12 @@ services:
       args:
         NETWORK: sepolia
         P2P_PORT: 35415
+        DATA_DIR: /sepolia
+    volumes:
+      - sepolia:/sepolia
     ports:
       - 35415:35415/tcp
       - 35415:35415/udp
     image: geth.sepolia-geth.dnp.dappnode.eth:0.1.3
+volumes:
+  sepolia: {}

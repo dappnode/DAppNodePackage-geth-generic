@@ -6,12 +6,7 @@ services:
       args:
         UPSTREAM_VERSION: v1.14.8
         STAKER_SCRIPTS_VERSION: v0.1.0
-        DATA_DIR: /root/.ethereum
-    volumes:
-      - geth:/root/.ethereum
     environment:
       EXTRA_OPTS: ""
       SYNCMODE: snap
     restart: unless-stopped
-volumes:
-  geth: {}

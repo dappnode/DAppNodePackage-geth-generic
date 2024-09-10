@@ -5,7 +5,12 @@ services:
       args:
         NETWORK: lukso
         P2P_PORT: 33141
+        DATA_DIR: /lukso
+    volumes:
+      - lukso:/lukso
     ports:
       - 33141:33141/tcp
       - 33141:33141/udp
     image: geth.lukso-geth.dnp.dappnode.eth:0.1.3
+volumes:
+  lukso: {}
