@@ -5,7 +5,12 @@ services:
       args:
         NETWORK: mainnet
         P2P_PORT: 30403
+        DATA_DIR: /root/.ethereum
+    volumes:
+      - geth:/root/.ethereum
     ports:
       - 30403:30403/tcp
       - 30403:30403/udp
     image: geth.geth.dnp.dappnode.eth:0.1.44
+volumes:
+  geth: {}

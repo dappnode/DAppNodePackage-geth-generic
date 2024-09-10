@@ -5,6 +5,9 @@ services:
       args:
         NETWORK: holesky
         P2P_PORT: 31403
+        DATA_DIR: /root/.ethereum
+    volumes:
+      - geth:/root/.ethereum
     ports:
       - 31403:31403/tcp
       - 31403:31403/udp
