@@ -1,4 +1,4 @@
-name: Bump upstream version
+name: Bump Upstream version
 
 on:
   workflow_dispatch:
