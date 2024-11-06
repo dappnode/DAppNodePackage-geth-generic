@@ -20,6 +20,9 @@
       "port": 8546
     }
   ],
+  "requirements": {
+    "minimumDappnodeVersion": "0.3.0"
+  },
   "optionalDependencies": {
     "lighthouse.dnp.dappnode.eth": ">=1.0.12",
     "prysm.dnp.dappnode.eth": ">=3.0.16",
