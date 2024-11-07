@@ -37,4 +37,15 @@ exec geth \
   --port "${P2P_PORT}" \
   --metrics \
   --metrics.addr 0.0.0.0 \
-  --authrpc.jwtsecret "${JWT_PATH}" ${NETWORK_FLAGS} ${EXTRA_OPTS}
+  --authrpc.jwtsecret "${JWT_PATH}" ${NETWORK_FLAGS} ${EXTRA_OPTS} \
+  --authrpc.addr 0.0.0.0 \
+  --authrpc.port 8551 \
+  --authrpc.vhosts "*" \
+  --http \
+  --http.addr 0.0.0.0 \
+  --http.corsdomain "*" \
+  --http.vhosts "*" \
+  --ws \
+  --ws.port 8546 \
+  --ws.origins "*" \
+  --ws.addr 0.0.0.0 
