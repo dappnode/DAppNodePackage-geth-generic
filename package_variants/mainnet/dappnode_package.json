@@ -21,7 +21,7 @@
     }
   ],
   "requirements": {
-    "minimumDappnodeVersion": "0.3.0"
+    "minimumDappnodeVersion": "0.2.100"
   },
   "optionalDependencies": {
     "lighthouse.dnp.dappnode.eth": ">=1.0.13",
