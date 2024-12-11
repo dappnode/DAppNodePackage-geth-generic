@@ -19,9 +19,5 @@
       "serviceName": "geth",
       "port": 8546
     }
-  ],
-  "optionalDependencies": {
-    "prysm-lukso.dnp.dappnode.eth": ">=0.1.2",
-    "teku-lukso.dnp.dappnode.eth": ">=0.1.1"
-  }
+  ]
 }
