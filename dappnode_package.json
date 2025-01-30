@@ -2,7 +2,7 @@
   "upstream": [
     {
       "repo": "ethereum/go-ethereum",
-      "version": "v1.14.12",
+      "version": "v1.14.13",
       "arg": "UPSTREAM_VERSION"
     },
     {
