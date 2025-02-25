@@ -1,6 +1,6 @@
 {
   "name": "holesky-geth.dnp.dappnode.eth",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "links": {
     "homepage": "https://github.com/dappnode/DAppNodePackage-geth-generic#readme",
     "api": "http://holesky-geth.dappnode:8545",

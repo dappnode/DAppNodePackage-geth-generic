@@ -1,6 +1,6 @@
 {
   "name": "geth.dnp.dappnode.eth",
-  "version": "0.1.46",
+  "version": "0.1.47",
   "links": {
     "api": "http://geth.dappnode:8545",
     "apiEngine": "http://geth.dappnode:8551",
