@@ -1,36 +1,20 @@
 endpoints:
-  - name: "Mainnet ETH Node Synced Check"
+  - name: "Mainnet ETH Node Syncing Check"
     enabled: true
     group: "ethereum"
-    url: "http://geth.dappnode:8545"
+    url: "http://get.dappnode:8545"
     method: "POST"
-    headers:
-      Content-Type: "application/json"
     body: |
       {"jsonrpc": "2.0", "id": 1, "method": "eth_syncing", "params": []}
     interval: "30s"
     conditions:
-      - "([STATUS] == 200 && [BODY].result != false)"
+      - "([STATUS] == 200 && [BODY].result == true)"
     definition:
       title: "Mainnet ETH Node Synced Check"
       description: "Check if the Mainnet ETH Node is synced. You will receive a notification if the node is syncing and another one when it is synced."
     alerts:
       - type: custom
-        description: "Geth Ethereum Node is"
-        url: "http://notifier.notifications.dappnode:8080/api/v1/notifications"
-        headers:
-          Content-Type: "application/json"
-        body: |
-          {
-            "title": "[ENDPOINT_NAME]",
-            "body": "[ALERT_DESCRIPTION] [ALERT_TRIGGERED_OR_RESOLVED]",
-            "category": "[ENDPOINT_GROUP]",
-            "dnpName": "geth.dnp.dappnode.eth"
-          }
-        placeholders:
-          ALERT_TRIGGERED_OR_RESOLVED:
-            TRIGGERED: "syncing"
-            RESOLVED: "synced"
+        description: "Geth Ethereum Node syncing"
         failure-threshold: 2
         success-threshold: 1
         send-on-resolved: true
