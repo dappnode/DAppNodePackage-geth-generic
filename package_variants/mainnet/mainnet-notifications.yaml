@@ -16,6 +16,7 @@ endpoints:
       description: "Check if the Mainnet ETH Node is synced. You will receive a notification if the node is syncing and another one when it is synced."
     alerts:
       - type: custom
+        enabled: true
         description: "Geth Ethereum Node syncing"
         failure-threshold: 2
         success-threshold: 1
