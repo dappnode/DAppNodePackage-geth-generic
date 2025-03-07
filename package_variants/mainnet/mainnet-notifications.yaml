@@ -18,7 +18,8 @@ endpoints:
       - type: custom
         description: "Geth Ethereum Node is"
         url: "http://notifier.notifications.dappnode:8080/api/v1/notifications"
-        method: "POST"
+        headers:
+          Content-Type: "application/json"
         body: |
           {
             "title": "[ENDPOINT_NAME]",
@@ -26,8 +27,6 @@ endpoints:
             "category": "[ENDPOINT_GROUP]",
             "dnpName": "geth.dnp.dappnode.eth"
           }
-        headers:
-          Content-Type: "application/json"
         placeholders:
           ALERT_TRIGGERED_OR_RESOLVED:
             TRIGGERED: "syncing"
