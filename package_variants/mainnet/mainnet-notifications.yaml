@@ -2,7 +2,7 @@ endpoints:
   - name: "Mainnet ETH Node Synced Check"
     enabled: true
     group: "ethereum"
-    url: "http://get.dappnode:8545"
+    url: "http://geth.dappnode:8545"
     method: "POST"
     body: |
       {"jsonrpc": "2.0", "id": 1, "method": "eth_syncing", "params": []}
