@@ -8,7 +8,7 @@ endpoints:
       {"jsonrpc": "2.0", "id": 1, "method": "eth_syncing", "params": []}
     interval: "30s"
     conditions:
-      - "([STATUS] == 200 && [BODY].result == true)"
+      - "([STATUS] == 200 && [BODY].result != false)"
     definition:
       title: "Mainnet ETH Node Synced Check"
       description: "Check if the Mainnet ETH Node is synced. You will receive a notification if the node is syncing and another one when it is synced."
