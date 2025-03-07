@@ -4,6 +4,8 @@ endpoints:
     group: "ethereum"
     url: "http://geth.dappnode:8545"
     method: "POST"
+    headers:
+      Content-Type: "application/json"
     body: |
       {"jsonrpc": "2.0", "id": 1, "method": "eth_syncing", "params": []}
     interval: "30s"
