@@ -3,7 +3,7 @@ storage:
   type: sqlite
   path: /config/gatus.db
 endpoints:
-  - name: "Mainnet ETH Node Syncing Check"
+  - name: "Mainnet ETH Node Synced Check"
     enabled: true
     group: "ethereum"
     url: "http://get.dappnode:8545"
@@ -11,20 +11,20 @@ endpoints:
     body: |
       {"jsonrpc": "2.0", "id": 1, "method": "eth_syncing", "params": []}
     interval: "30s"
-    # The condition below means:
-    # • if HTTP 200, then the check is healthy only if [BODY].result is exactly false (i.e. node is not syncing)
-    # • if not HTTP 200, then the check is considered healthy (ignoring other errors)
     conditions:
-      - "([STATUS] == 200 && [BODY].result == false)"
+      - "([STATUS] == 200 && [BODY].result == true)"
+    definition:
+      title: "Mainnet ETH Node Synced Check"
+      description: "Check if the Mainnet ETH Node is synced. You will receive a notification if the node is syncing and another one when it is synced."
     alerts:
       - type: custom
-        description: "Eth RPC node is syncing"
+        description: "Geth Ethereum Node is"
         url: "http://notifier.notifications.dappnode:8080/api/v1/notifications"
         method: "POST"
         body: |
           {
             "title": "[ENDPOINT_NAME]",
-            "body": "[ALERT_TRIGGERED_OR_RESOLVED]: Node is syncing",
+            "body": "[ALERT_DESCRIPTION] [ALERT_TRIGGERED_OR_RESOLVED]",
             "category": "[ENDPOINT_GROUP]",
             "dnpName": "geth.dnp.dappnode.eth"
           }
@@ -32,8 +32,8 @@ endpoints:
           Content-Type: "application/json"
         placeholders:
           ALERT_TRIGGERED_OR_RESOLVED:
-            TRIGGERED: "triggered"
-            RESOLVED: "resolved"
+            TRIGGERED: "syncing"
+            RESOLVED: "synced"
         failure-threshold: 2
         success-threshold: 1
         send-on-resolved: true
