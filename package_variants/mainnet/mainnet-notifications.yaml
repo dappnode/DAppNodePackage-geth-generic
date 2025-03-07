@@ -1,7 +1,3 @@
-metrics: true
-storage:
-  type: sqlite
-  path: /config/gatus.db
 endpoints:
   - name: "Mainnet ETH Node Synced Check"
     enabled: true
