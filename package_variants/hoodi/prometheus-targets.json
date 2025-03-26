@@ -1,0 +1,10 @@
+[
+  {
+    "labels": {
+      "package": "hoodi-geth.dnp.dappnode.eth",
+      "service": "geth",
+      "__metrics_path__": "/debug/metrics/prometheus"
+    },
+    "targets": ["hoodi-geth.dappnode:6060"]
+  }
+]

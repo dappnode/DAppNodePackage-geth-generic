@@ -1,0 +1,16 @@
+version: "3.5"
+services:
+  geth:
+    build:
+      args:
+        NETWORK: hoodi
+        P2P_PORT: 31403
+        DATA_DIR: /root/.ethereum
+    volumes:
+      - geth:/root/.ethereum
+    ports:
+      - 31403:31403/tcp
+      - 31403:31403/udp
+    image: geth.hoodi-geth.dnp.dappnode.eth:0.1.2
+volumes:
+  geth: {}
