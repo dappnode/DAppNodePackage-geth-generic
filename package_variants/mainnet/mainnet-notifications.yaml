@@ -21,3 +21,25 @@ endpoints:
         failure-threshold: 2
         success-threshold: 1
         send-on-resolved: true
+  - name: "Mainnet ETH Node Peers count Check"
+    enabled: true
+    group: "ethereum"
+    url: "http://geth.dappnode:8545"
+    method: "POST"
+    body: |
+      {"jsonrpc": "2.0", "id": 1, "method": "net_peerCount", "params": []}
+    headers:
+      Content-Type: "application/json"
+    interval: "30s"
+    conditions:
+      - "[BODY].result >= 10"
+    definition:
+      title: "Mainnet ETH Node Peers count Check"
+      description: "Check if the Mainnet ETH Node has a minimum of peers. You will receive a notification if the node has less than the peers defined and another one when it has more than the peers defined."
+    alerts:
+      - type: custom
+        enabled: true
+        description: "Geth Ethereum Node peers count"
+        failure-threshold: 2
+        success-threshold: 1
+        send-on-resolved: true
