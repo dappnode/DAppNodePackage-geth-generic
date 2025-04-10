@@ -1,0 +1,145 @@
+name: Manual Deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build DAppNode Package
+        run: |
+          npx @dappnode/dappnodesdk build --variant=hoodi
+
+      - name: Extract IPFS Hash
+        id: extract_ipfs
+        run: |
+          # Use jq to get the hash from the generated releases.json.
+          ipfs_hash=$(jq -r '.[].hash' variants/hoodi/releases.json)
+          echo "IPFS hash: $ipfs_hash"
+          # Save the hash as an environment variable for later steps.
+          echo "IPFS_HASH=$ipfs_hash" >> $GITHUB_ENV
+
+      - name: Check DAppManager Ping
+        id: ping_dappmanager
+        run: |
+          # Ping the DAppManager endpoint and check for HTTP 200
+          code=$(curl -s -o /dev/null -w "%{http_code}" http://172.33.1.7:7000/ping)
+          if [ "$code" -ne 200 ]; then
+            echo "dappmanager is not running with env TEST=true and therefore the test api is not running"
+            exit 1
+          fi
+
+      - name: Get Staker Config
+        id: staker_config
+        run: |
+          # Get the staker configuration
+          response=$(curl -s -X POST http://172.33.1.7:7000/stakerConfigGet \
+            -H "Content-Type: application/json" \
+            -d '{"network": "hoodi"}')
+          echo "$response" > staker_config.json
+
+          # Select the execution client "hoodi-geth.dnp.dappnode.eth"
+          client=$(echo "$response" | jq -c '.executionClients[] | select(.dnpName=="hoodi-geth.dnp.dappnode.eth")')
+          if [ -z "$client" ]; then
+            echo "Error: execution client hoodi-geth.dnp.dappnode.eth not selected."
+            exit 1
+          fi
+          isInstalled=$(echo "$client" | jq -r '.isInstalled')
+          isRunning=$(echo "$client" | jq -r '.isRunning')
+          if [ "$isInstalled" != "true" ] || [ "$isRunning" != "true" ]; then
+            echo "Error: hoodi-geth.dnp.dappnode.eth must be installed and running."
+            exit 1
+          fi
+          # Retrieve the semversion (if available). Falls back to "unknown" if not set.
+          semversion=$(echo "$client" | jq -r '.data.semVersion // "unknown"')
+          echo "Execution client semver: $semversion"
+          echo "SEM_VERSION=$semversion" >> $GITHUB_ENV
+
+      - name: Install Package
+        id: install_package
+        run: |
+          # Replace the placeholder with the actual ipfs hash from step 2.
+          ipfs_hash=${{ env.IPFS_HASH }}
+          curl -X POST http://172.33.1.7:7000/packageInstall \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"name\": \"hoodi-geth-dnp.dappnode.eth\",
+              \"version\": \"${ipfs_hash}\",
+              \"userSettings\": {},
+              \"options\": {
+                \"BYPASS_CORE_RESTRICTION\": true,
+                \"BYPASS_SIGNED_RESTRICTION\": true
+              }
+            }"
+
+      - name: Get Geth Hoodi Data
+        id: get_geth_data
+        run: |
+          # Get the unique_id and mount_path for later usage
+          response=$(curl -s http://localhost:3000/data/request/geth-hoodi)
+          echo "$response" > geth_hoodi.json
+          unique_id=$(echo "$response" | jq -r '.unique_id')
+          mount_path=$(echo "$response" | jq -r '.mount_path')
+          echo "Unique ID: $unique_id, Mount Path: $mount_path"
+          echo "UNIQUE_ID=$unique_id" >> $GITHUB_ENV
+          echo "MOUNT_PATH=$mount_path" >> $GITHUB_ENV
+
+      - name: Remount Docker Volume Using MOUNT_PATH as Source
+        id: remount_docker
+        run: |
+          set -e
+          mount_path="${{ env.MOUNT_PATH }}"
+          container_name="DAppNodePackage-geth.hoodi-geth.dnp.dappnode.eth"
+
+          # Retrieve the container's mounts as JSON and ensure exactly one volume is attached.
+          mounts=$(docker inspect "$container_name" --format '{{json .Mounts}}')
+          volume_count=$(echo "$mounts" | jq 'length')
+          if [ "$volume_count" -ne 1 ]; then
+            echo "Error: Expected exactly one volume for container ${container_name}, but found ${volume_count}."
+            exit 1
+          fi
+
+          # Get the docker volume name; the docker volume's data directory is typically located at /var/lib/docker/volumes/<volume_name>/_data.
+          volume_name=$(echo "$mounts" | jq -r '.[0].Name')
+          volume_target="/var/lib/docker/volumes/${volume_name}/_data"
+          echo "Using NFS source ${mount_path} to mount onto docker volume ${volume_name} at ${volume_target}"
+
+          # Mount the NFS share from MOUNT_PATH into the docker volume's data folder.
+          sudo mount -t nfs "${mount_path}" "${volume_target}"
+          if [ $? -ne 0 ]; then
+            echo "Error: Failed to mount ${mount_path} onto ${volume_target}"
+            exit 1
+          fi
+
+          echo "NFS mount successful. Restarting container ${container_name}..."
+          docker container restart "$container_name"
+
+      - name: Poll Eth Syncing Status
+        id: poll_eth_sync
+        run: |
+          # Obtain the IP address of the container from the docker network "dncore_network".
+          container_ip=$(docker inspect DAppNodePackage-geth.hoodi-geth.dnp.dappnode.eth --format='{{.NetworkSettings.Networks.dncore_network.IPAddress}}')
+          if [ -z "$container_ip" ]; then
+            echo "Error: Could not obtain the IP address of container DAppNodePackage-geth.hoodi-geth.dnp.dappnode.eth on network dncore_network."
+            exit 1
+          fi
+          endpoint="http://${container_ip}:8545"
+          echo "Polling eth_syncing status at $endpoint"
+          for i in $(seq 1 30); do
+            response=$(curl -s -X POST -H "Content-Type: application/json" \
+              --data '{"jsonrpc": "2.0", "method": "eth_syncing", "params": [], "id": 1}' "$endpoint")
+            syncing=$(echo "$response" | jq -r '.result')
+            echo "Attempt $i: eth_syncing response: $syncing"
+            if [ "$syncing" == "false" ]; then
+              echo "Synchronization is complete."
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "Error: eth node is still syncing after 30 attempts."
+          exit 1
+
