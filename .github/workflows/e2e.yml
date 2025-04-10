@@ -138,17 +138,31 @@ jobs:
           fi
           endpoint="http://${container_ip}:8545"
           echo "Polling eth_syncing status at $endpoint"
+      
           for i in $(seq 1 30); do
+            # '|| true' ensures the script continues even if curl fails.
             response=$(curl -s -X POST -H "Content-Type: application/json" \
-              --data '{"jsonrpc": "2.0", "method": "eth_syncing", "params": [], "id": 1}' "$endpoint")
+              --data '{"jsonrpc": "2.0", "method": "eth_syncing", "params": [], "id": 1}' "$endpoint" || true)
+            
+            # Optional: Check if 'curl' returned anything
+            if [ -z "$response" ]; then
+              echo "Attempt $i: No response or curl error. Retrying..."
+              sleep 10
+              continue
+            fi
+      
             syncing=$(echo "$response" | jq -r '.result')
             echo "Attempt $i: eth_syncing response: $syncing"
+      
             if [ "$syncing" == "false" ]; then
               echo "Synchronization is complete."
               exit 0
             fi
+      
             sleep 10
           done
+      
           echo "Error: eth node is still syncing after 30 attempts."
           exit 1
+      
 
