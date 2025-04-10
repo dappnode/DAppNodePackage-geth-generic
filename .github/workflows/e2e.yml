@@ -124,9 +124,6 @@ jobs:
             exit 1
           fi
           
-          echo "Removing datasorce nodekey..."
-          rm /var/lib/docker/volumes/${volume_name}/_data/geth/nodekey
-
           echo "NFS mount successful. Starting container ${container_name}..."
           docker container start "$container_name"
 
