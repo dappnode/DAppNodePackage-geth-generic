@@ -164,5 +164,34 @@ jobs:
       
           echo "Error: eth node is still syncing after 30 attempts."
           exit 1
+      - name: Unmount Docker Volume
+        if: always()
+        run: |
+          set -e
+          container_name="${{ env.CONTAINER_NAME }}"
+          volume_target="${{ env.VOLUME_TARGET }}"
+
+          echo "Stopping container ${container_name}..."
+          docker container stop "$container_name"
+
+          echo "Unmounting data from ${volume_target}..."
+          sudo umount "${volume_target}"
+
+          echo "Starting container ${container_name}..."
+          docker container start "$container_name"
+
+      - name: Release Data
+        if: always()
+        run: |
+          set -e
+          unique_id="${{ env.UNIQUE_ID }}"
+          if [ -z "$unique_id" ]; then
+            echo "No unique_id found. Skipping data release."
+            exit 0
+          fi
+
+          echo "Releasing data for unique_id: $unique_id"
+          response=$(curl -s -X POST "http://localhost:3000/data/release/$unique_id")
+          echo "Data release response: $response"
       
 
