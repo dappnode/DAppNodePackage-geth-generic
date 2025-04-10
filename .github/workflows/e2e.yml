@@ -127,6 +127,10 @@ jobs:
           echo "NFS mount successful. Starting container ${container_name}..."
           docker container start "$container_name"
 
+          echo "VOLUME_NAME=$volume_name" >> $GITHUB_ENV
+          echo "VOLUME_TARGET=$volume_target" >> $GITHUB_ENV
+          echo "CONTAINER_NAME=$container_name" >> $GITHUB_ENV
+
       - name: Poll Eth Syncing Status
         id: poll_eth_sync
         run: |
