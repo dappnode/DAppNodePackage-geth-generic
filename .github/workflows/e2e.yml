@@ -123,6 +123,9 @@ jobs:
             echo "Error: Failed to mount ${mount_path} onto ${volume_target}"
             exit 1
           fi
+          
+          echo "Removing datasorce nodekey..."
+          rm /var/lib/docker/volumes/${volume_name}/_data/geth/nodekey
 
           echo "NFS mount successful. Starting container ${container_name}..."
           docker container start "$container_name"
@@ -168,6 +171,8 @@ jobs:
       
           echo "Error: eth node is still syncing after 30 attempts."
           exit 1
+      - name: Wait for tests (dummy sleep)
+        run: sleep 60   
       - name: Unmount Docker Volume
         if: always()
         run: |
