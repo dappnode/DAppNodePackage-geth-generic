@@ -11,6 +11,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js 22 using nvm
+        run: |
+          # Set up nvm
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+          
+          # Install and use Node 22
+          nvm install 22
+          nvm use 22
+          echo "Using Node version: $(node --version)"
+
       - name: Build DAppNode Package
         run: |
           npx @dappnode/dappnodesdk build --variant=hoodi
