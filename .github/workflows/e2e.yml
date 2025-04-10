@@ -24,7 +24,7 @@ jobs:
         id: extract_ipfs
         run: |
           # Use jq to get the hash from the generated releases.json.
-          ipfs_hash=$(jq -r '.[].hash' variants/hoodi/releases.json)
+          ipfs_hash=$(jq -r '.[].hash' package_variants/hoodi/releases.json)
           echo "IPFS hash: $ipfs_hash"
           # Save the hash as an environment variable for later steps.
           echo "IPFS_HASH=$ipfs_hash" >> $GITHUB_ENV
