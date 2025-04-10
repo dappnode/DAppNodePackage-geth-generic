@@ -18,7 +18,7 @@ jobs:
 
       - name: Build DAppNode Package
         run: |
-          npx @dappnode/dappnodesdk build --variant=hoodi
+          npx @dappnode/dappnodesdk build --provider=remote --variant=hoodi
 
       - name: Extract IPFS Hash
         id: extract_ipfs
