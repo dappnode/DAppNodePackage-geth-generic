@@ -42,6 +42,10 @@ endpoints:
     correlationId: "lukso-geth-eth-peers"
     isBanner: false
     priority: "low"
+    metric:
+      min: 0
+      max: 50
+      unit: "peers"
     alerts:
       - type: custom
         enabled: true
