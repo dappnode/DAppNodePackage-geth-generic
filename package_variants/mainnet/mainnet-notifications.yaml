@@ -16,6 +16,7 @@ endpoints:
       description: "Check if the Mainnet ETH Node is synced. You will receive a notification if the node is syncing and another one when it is synced."
     correlationId: "geth-eth-syncing"
     isBanner: false
+    priority: "medium"
     alerts:
       - type: custom
         enabled: true
@@ -40,6 +41,7 @@ endpoints:
       description: "Check if the Mainnet ETH Node has a minimum of peers. You will receive a notification if the node has less than the peers defined for 5 minutes and another one when it has more than the peers defined."
     correlationId: "geth-eth-peers"
     isBanner: false
+    priority: "low"
     alerts:
       - type: custom
         enabled: true
