@@ -16,6 +16,7 @@ endpoints:
       description: "Check if the Lukso ETH Node is synced. You will receive a notification if the node is syncing and another one when it is synced."
     correlationId: "lukso-geth-eth-syncing"
     isBanner: false
+    priority: "medium"
     alerts:
       - type: custom
         enabled: true
