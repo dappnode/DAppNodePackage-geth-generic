@@ -14,7 +14,7 @@ endpoints:
     definition:
       title: "Holesky ETH Node Synced Check"
       description: "Check if the Holesky ETH Node is synced. You will receive a notification if the node is syncing and another one when it is synced."
-    correlationId: "geth-eth-syncing"
+    correlationId: "holesky-geth-eth-syncing"
     isBanner: false
     priority: "medium"
     alerts:
@@ -39,7 +39,7 @@ endpoints:
     definition:
       title: "Holesky ETH Node Peers count Check"
       description: "Check if the Holesky ETH Node has a minimum of peers. You will receive a notification if the node has less than the peers defined for 5 minutes and another one when it has more than the peers defined."
-    correlationId: "geth-eth-peers"
+    correlationId: "holesky-geth-eth-peers"
     isBanner: false
     priority: "low"
     metric:

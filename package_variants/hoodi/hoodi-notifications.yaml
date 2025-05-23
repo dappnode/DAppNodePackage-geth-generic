@@ -39,7 +39,7 @@ endpoints:
     definition:
       title: "Hoodi ETH Node Peers count Check"
       description: "Check if the Hoodi ETH Node has a minimum of peers. You will receive a notification if the node has less than the peers defined for 5 minutes and another one when it has more than the peers defined."
-    correlationId: "geth-eth-peers"
+    correlationId: "hoodi-geth-eth-peers"
     isBanner: false
     priority: "low"
     metric:
