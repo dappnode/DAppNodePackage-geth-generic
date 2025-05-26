@@ -49,7 +49,7 @@ endpoints:
     alerts:
       - type: custom
         enabled: true
-        description: "Geth Sepolia Node peers count"
+        description: "Geth Sepolia Node peers count is below [CONDITION_VALUE]"
         failure-threshold: 2
         success-threshold: 1
         send-on-resolved: true
