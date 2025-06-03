@@ -32,8 +32,5 @@
   },
   "bugs": {
     "url": "https://github.com/dappnode/DAppNodePackage-geth-generic/issues"
-  },
-  "requirements": {
-    "minimumDappnodeVersion": "0.2.106"
   }
 }
