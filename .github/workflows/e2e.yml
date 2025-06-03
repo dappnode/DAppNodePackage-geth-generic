@@ -41,6 +41,5 @@ jobs:
 
       - name: Run staker client test sdk
         run: |
-          git clone https://github.com/dappnode/staker-test-util
-          cd staker-test-util
+          cd /home/pablo/staker-test-util
           LOG_LEVEL=DEBUG go run cmd/main.go --ipfs-gateway-url=https://gateway-dev.ipfs.dappnode.io --tropidatooor-url=http://localhost:3000 --ipfs-hash=${{ env.IPFS_HASH }}
