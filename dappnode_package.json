@@ -2,7 +2,7 @@
   "upstream": [
     {
       "repo": "ethereum/go-ethereum",
-      "version": "v1.15.6",
+      "version": "v1.15.11",
       "arg": "UPSTREAM_VERSION"
     },
     {
@@ -34,6 +34,6 @@
     "url": "https://github.com/dappnode/DAppNodePackage-geth-generic/issues"
   },
   "requirements": {
-    "minimumDappnodeVersion": "0.2.101"
+    "minimumDappnodeVersion": "0.2.106"
   }
 }

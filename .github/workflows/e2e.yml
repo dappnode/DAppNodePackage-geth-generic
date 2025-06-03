@@ -200,4 +200,3 @@ jobs:
           response=$(curl -s -X POST "http://localhost:3000/data/release/$unique_id")
           echo "Data release response: $response"
       
-
