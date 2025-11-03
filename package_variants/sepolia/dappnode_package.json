@@ -1,6 +1,6 @@
 {
   "name": "sepolia-geth.dnp.dappnode.eth",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "links": {
     "api": "http://geth.sepolia-geth.dappnode:8545",
     "apiEngine": "http://geth.sepolia-geth.dappnode:8551",
