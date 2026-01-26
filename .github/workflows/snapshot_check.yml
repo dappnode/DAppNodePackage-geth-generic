@@ -4,10 +4,6 @@ on:
   schedule:
     - cron: '0 */6 * * *'
   workflow_dispatch:
-    inputs:
-      consensus_client:
-        description: 'Consensus client (lodestar, teku, prysm, nimbus, lighthouse)'
-        required: true
 
 jobs:
   snapshot-check-docker:
@@ -19,6 +15,5 @@ jobs:
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v /var/lib/docker/volumes:/var/lib/docker/volumes \
             -e EXECUTION_CLIENT='geth' \
-            -e CONSENSUS_CLIENT=${{ github.event.inputs.consensus_client }} \
             -e NETWORK=hoodi \
             ghcr.io/dappnode/staker-test-util/snapshot-checker:latest
