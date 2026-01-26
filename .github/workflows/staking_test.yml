@@ -46,4 +46,5 @@ jobs:
             -e GITHUB_PR_NUMBER=${{ github.event.pull_request.number }} \
             -e GITHUB_RUN_ID=${{ github.run_id }} \
             -e GITHUB_SERVER_URL=${{ github.server_url }} \
+            -e LOG_LEVEL=debug \
             ghcr.io/dappnode/staker-test-util/test-runner:latest

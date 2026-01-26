@@ -16,4 +16,5 @@ jobs:
             -v /var/lib/docker/volumes:/var/lib/docker/volumes \
             -e EXECUTION_CLIENT='geth' \
             -e NETWORK=hoodi \
+            -e LOG_LEVEL=debug \
             ghcr.io/dappnode/staker-test-util/snapshot-checker:latest
