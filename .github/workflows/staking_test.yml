@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-test:
-    runs-on: staking_test
+    runs-on: staking-test-hoodi
     name: Build test
     steps:
       - uses: actions/checkout@v6
@@ -20,7 +20,7 @@ jobs:
             --variant=hoodi
 
   staker-test:
-    runs-on: staking_test
+    runs-on: staking-test-hoodi
     steps:
       - uses: actions/checkout@v6
 
