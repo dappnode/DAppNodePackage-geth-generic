@@ -8,21 +8,16 @@ on:
         required: true
 
 jobs:
-  build-test:
-    runs-on: staking-test-hoodi
-    name: Build test
-    steps:
-      - uses: actions/checkout@v6
-      - run: |
-          npx @dappnode/dappnodesdk build \
-            --provider=http://$(docker inspect DAppNodeCore-ipfs.dnp.dappnode.eth \
-              --format '{{.NetworkSettings.Networks.dncore_network.IPAddress}}'):5001 \
-            --variant=hoodi
-
   staker-test:
     runs-on: staking-test-hoodi
     steps:
       - uses: actions/checkout@v6
+      - name: Build test
+        run: |
+          npx @dappnode/dappnodesdk build \
+            --provider=http://$(docker inspect DAppNodeCore-ipfs.dnp.dappnode.eth \
+              --format '{{.NetworkSettings.Networks.dncore_network.IPAddress}}'):5001 \
+            --variant=hoodi
 
       - name: Get IPFS hash
         id: ipfs
