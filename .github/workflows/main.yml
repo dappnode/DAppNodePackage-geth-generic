@@ -29,6 +29,8 @@ jobs:
       - uses: actions/checkout@v6
       - name: Build and upload
         run: npx @dappnode/dappnodesdk build --provider=http://$(docker inspect DAppNodeCore-ipfs.dnp.dappnode.eth --format '{{.NetworkSettings.Networks.dncore_network.IPAddress}}'):5001 --variant=hoodi
+      - name: Debug file existence
+        run: ls -l package_variants/hoodi/
       - name: Run staker test runner
         run: |
           docker run --rm \
