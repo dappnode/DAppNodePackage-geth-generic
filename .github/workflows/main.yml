@@ -1,25 +1,46 @@
 name: "Main"
 on:
+  workflow_dispatch:
+    inputs:
+      consensus_client:
+        description: 'Consensus Client'
+        required: true
+        type: choice
+        options:
+          - lodestar
+          - teku
+          - prysm
+          - nimbus
+          - lighthouse
   repository_dispatch:
   pull_request:
   push:
     branches:
       - "main"
-      - "v[0-9]+.[0-9]+.[0-9]+"
     paths-ignore:
       - "README.md"
 
 jobs:
   build-test:
-    runs-on: ubuntu-latest
-    name: Build test
+    runs-on: staking-test-hoodi
+    name: Build and test
+    if: "!contains(github.ref, 'no-test')"
     steps:
       - uses: actions/checkout@v6
-      - run: npx @dappnode/dappnodesdk build --skip_save --variant=mainnet
+      - name: Build and upload
+        run: npx @dappnode/dappnodesdk build --provider=http://$(docker inspect DAppNodeCore-ipfs.dnp.dappnode.eth --format '{{.NetworkSettings.Networks.dncore_network.IPAddress}}'):5001 --variant=hoodi
+      - name: Run staker test runner
+        run: |
+          docker run --rm \
+            --network dncore_network -e CONSENSUS_CLIENT=${{ github.event.inputs.consensus_client }} \
+            -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker/volumes:/var/lib/docker/volumes \
+            -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -e GITHUB_REPOSITORY=${{ github.repository }} -e GITHUB_PR_NUMBER=${{ github.event.pull_request.number }} -e GITHUB_RUN_ID=${{ github.run_id }} -e GITHUB_SERVER_URL=${{ github.server_url }} \
+            ghcr.io/dappnode/staker-test-util/test-runner:latest
 
   release:
     name: Release
     runs-on: ubuntu-latest
+    needs: [build-test]
     if: github.event_name == 'push' || github.event_name == 'repository_dispatch'
     steps:
       - uses: actions/checkout@v6
