@@ -29,11 +29,9 @@ jobs:
       - uses: actions/checkout@v6
       - name: Build and upload
         run: npx @dappnode/dappnodesdk build --provider=http://$(docker inspect DAppNodeCore-ipfs.dnp.dappnode.eth --format '{{.NetworkSettings.Networks.dncore_network.IPAddress}}'):5001 --variant=hoodi
-      - name: Debug file existence
-        run: ls -l package_variants/hoodi/
       - name: Run staker test runner
         run: |
-          docker run --rm \
+          docker run --rm --pull=always \
             --network dncore_network -e CONSENSUS_CLIENT=${{ github.event.inputs.consensus_client }} \
             -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker/volumes:/var/lib/docker/volumes -v $PWD/package_variants:/app/package_variants  \
             -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -e GITHUB_REPOSITORY=${{ github.repository }} -e GITHUB_PR_NUMBER=${{ github.event.pull_request.number }} -e GITHUB_RUN_ID=${{ github.run_id }} -e GITHUB_SERVER_URL=${{ github.server_url }} \
@@ -43,7 +41,7 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     needs: [build-test]
-    if: github.event_name == 'push' || github.event_name == 'repository_dispatch'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'repository_dispatch'
     steps:
       - uses: actions/checkout@v6
       - name: Publish
