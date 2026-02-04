@@ -34,14 +34,13 @@ jobs:
 
   sync-test:
     runs-on: staking-test-hoodi
+    name: Execution Client Sync Test
     needs: [build]
     steps:
       - name: Run sync
         run: |
           docker run --rm --pull=always --network dncore_network \
             -v /var/run/docker.sock:/var/run/docker.sock \
-            -e MODE=sync \
-            -e IPFS_HASH=${{ needs.build.outputs.ipfs_hash }} \
-            -e EXECUTION_CLIENT='geth' \
-            -e CONSENSUS_CLIENT=${{ github.event.inputs.consensus_client }} \
+            -e MODE=sync -e EXECUTION_CLIENT='geth' -e IPFS_HASH=${{ needs.build.outputs.ipfs_hash }} -e CONSENSUS_CLIENT=${{ github.event.inputs.consensus_client }} \
+            -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -e GITHUB_REPOSITORY=${{ github.repository }} -e GITHUB_PR_NUMBER=${{ github.event.pull_request.number }} -e GITHUB_RUN_ID=${{ github.run_id }} -e GITHUB_SERVER_URL=${{ github.server_url }} \
             ghcr.io/dappnode/staker-test-util/test-runner:latest
