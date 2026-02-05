@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       consensus_client:
-        description: 'Consensus Client'
+        description: "Consensus Client"
         required: true
         type: choice
         options: [lodestar, teku, prysm, nimbus, lighthouse]
@@ -52,6 +52,9 @@ jobs:
     needs: [test]
     steps:
       - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
       - name: Publish
         run: npx @dappnode/dappnodesdk publish patch --content_provider=http://10.200.200.7:5001 --eth_provider=https://web3.dappnode.net --timeout 2h --all-variants
         env:
