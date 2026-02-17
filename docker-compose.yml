@@ -4,7 +4,7 @@ services:
     build:
       context: geth
       args:
-        UPSTREAM_VERSION: v1.16.8
+        UPSTREAM_VERSION: v1.17.0
         STAKER_SCRIPTS_VERSION: v0.1.2
     environment:
       EXTRA_OPTS: ""

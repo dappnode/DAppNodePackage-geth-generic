@@ -1,6 +1,6 @@
 {
   "name": "hoodi-geth.dnp.dappnode.eth",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "links": {
     "homepage": "https://github.com/dappnode/DAppNodePackage-geth-generic#readme",
     "api": "http://hoodi-geth.dappnode:8545",
