@@ -5285,8 +5285,8 @@
       {
         "current": {
           "selected": false,
-          "text": "holesky-geth.dappnode:6060",
-          "value": "holesky-geth.dappnode:6060"
+          "text": "hoodi-geth.dappnode:6060",
+          "value": "hoodi-geth.dappnode:6060"
         },
         "datasource": "Prometheus",
         "definition": "label_values(chain_head_block{chain=~\"$chain\"}, instance)",

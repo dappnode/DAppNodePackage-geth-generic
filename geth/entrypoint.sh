@@ -7,9 +7,6 @@ JWT_SECRET=$(get_jwt_secret_by_network "${NETWORK}")
 echo "${JWT_SECRET}" >"${JWT_PATH}"
 
 case "$NETWORK" in
-"holesky")
-  NETWORK_FLAGS="--holesky"
-  ;;
 "hoodi")
   NETWORK_FLAGS="--hoodi"
   ;;
