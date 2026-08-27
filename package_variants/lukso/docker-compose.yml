@@ -6,7 +6,7 @@ services:
         NETWORK: lukso
         P2P_PORT: 33141
         DATA_DIR: /lukso
-        UPSTREAM_VERSION: v1.15.11
+        UPSTREAM_VERSION: v1.17.2
     volumes:
       - lukso:/lukso
     ports:
