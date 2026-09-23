@@ -39,7 +39,7 @@
     {
       "arg": "UPSTREAM_VERSION",
       "repo": "ethereum/go-ethereum",
-      "version": "v1.17.5"
+      "version": "v1.17.6"
     },
     {
       "arg": "STAKER_SCRIPTS_VERSION",

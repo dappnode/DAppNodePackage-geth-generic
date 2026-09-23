@@ -1,25 +1,25 @@
 {
-  "name": "sepolia-geth.dnp.dappnode.eth",
-  "version": "0.1.5",
+  "exposable": [
+    {
+      "description": "JSON-RPC endpoint for Sepolia Geth",
+      "fromSubdomain": "sepolia-geth",
+      "name": "Sepolia Geth JSON-RPC (HTTP)",
+      "port": 8545,
+      "serviceName": "geth"
+    },
+    {
+      "description": "JSON-RPC WebSocket endpoint for Sepolia Geth",
+      "fromSubdomain": "sepolia-geth",
+      "name": "Sepolia Geth JSON-RPC (WS)",
+      "port": 8545,
+      "serviceName": "geth"
+    }
+  ],
   "links": {
     "api": "http://geth.sepolia-geth.dappnode:8545",
     "apiEngine": "http://geth.sepolia-geth.dappnode:8551",
     "homepage": "https://github.com/dappnode/DAppNodePackage-geth-generic#readme"
   },
-  "exposable": [
-    {
-      "name": "Sepolia Geth JSON-RPC (HTTP)",
-      "description": "JSON-RPC endpoint for Sepolia Geth",
-      "serviceName": "geth",
-      "fromSubdomain": "sepolia-geth",
-      "port": 8545
-    },
-    {
-      "name": "Sepolia Geth JSON-RPC (WS)",
-      "description": "JSON-RPC WebSocket endpoint for Sepolia Geth",
-      "serviceName": "geth",
-      "fromSubdomain": "sepolia-geth",
-      "port": 8545
-    }
-  ]
+  "name": "sepolia-geth.dnp.dappnode.eth",
+  "version": "0.1.6"
 }
