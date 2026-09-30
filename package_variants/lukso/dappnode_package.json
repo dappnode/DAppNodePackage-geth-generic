@@ -1,30 +1,30 @@
 {
-  "name": "lukso-geth.dnp.dappnode.eth",
-  "version": "0.1.6",
-  "upstream": [
+  "exposable": [
     {
-      "repo": "ethereum/go-ethereum",
-      "version": "v1.17.2",
-      "arg": "UPSTREAM_VERSION"
+      "description": "HTTP-JSON-RPC endpoint for Lukso",
+      "name": "Lukso Geth JSON-RPC (HTTP)",
+      "port": 8545,
+      "serviceName": "geth"
+    },
+    {
+      "description": "WS-JSON-RPC endpoint for Lukso",
+      "name": "Lukso Geth JSON-RPC (WS)",
+      "port": 8546,
+      "serviceName": "geth"
     }
   ],
   "links": {
-    "homepage": "https://github.com/dappnode/DAppNodePackage-geth-generic#readme",
     "api": "http://lukso-geth.dappnode:8545",
-    "engineAPI": "http://lukso-geth.dappnode:8551"
+    "engineAPI": "http://lukso-geth.dappnode:8551",
+    "homepage": "https://github.com/dappnode/DAppNodePackage-geth-generic#readme"
   },
-  "exposable": [
+  "name": "lukso-geth.dnp.dappnode.eth",
+  "upstream": [
     {
-      "name": "Lukso Geth JSON-RPC (HTTP)",
-      "description": "HTTP-JSON-RPC endpoint for Lukso",
-      "serviceName": "geth",
-      "port": 8545
-    },
-    {
-      "name": "Lukso Geth JSON-RPC (WS)",
-      "description": "WS-JSON-RPC endpoint for Lukso",
-      "serviceName": "geth",
-      "port": 8546
+      "arg": "UPSTREAM_VERSION",
+      "repo": "ethereum/go-ethereum",
+      "version": "v1.17.2"
     }
-  ]
+  ],
+  "version": "0.1.7"
 }
